@@ -16,7 +16,10 @@ SHEET = GSPREAD_CLIENT.open('felling_running_club')
 
 def get_mileage_data():
     """
-    Get the daily miles for each member for the user
+    Get the daily miles for each member for the user.
+    Run a while loop, collecting valid string of 5 numbers each day,
+    separated by commas, from user using the terminal. Repeated until 
+    all required valid data is collected.
     """
     print("Data should be five numbers, separated by commas.")
     print("Example: 12,5,8,6,7\n")
@@ -55,4 +58,32 @@ def validate_data(values):
         return False
 
 
-mileage = get_mileage_data()
+def get_mileage_only(mileage_data):
+    """
+    Extracts the mileage from the mileage_data,
+    to allow to update the worksheet with just integers.
+    """
+    mileage_only = [int(mileage) for value in mileage_data.values() for mileage in value.split(",")]
+    
+    return mileage_only
+
+
+def update_mileage_worksheet(mileage_only):
+    """
+    Update mileage worksheet.
+    Add new rows with the daily mileage data collected from user.
+    """
+    print("Updating mileage worksheet...\n")
+    mileage_worksheet = SHEET.worksheet("mileage")
+
+    for i in range(0, len(mileage), 5):
+        row_data = mileage[i:i+5]
+        mileage_worksheet.append_row(row_data)
+
+    print("mileage worksheet updated successfully.\n")
+
+
+data = get_mileage_data()
+mileage_only = get_mileage_only(data)
+mileage = [int(num) for num in mileage_only]
+update_mileage_worksheet(mileage)
