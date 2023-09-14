@@ -142,6 +142,18 @@ def calculate_highest_average(data):
     return winner
 
 
+def update_leaderboard(data):
+    """
+    Update the leaderboard worksheet with the member with the highest average.
+    Print to the terminal congratulating the winner. 
+    """
+    print("Updating leaderboard...\n")
+    leaderboard = SHEET.worksheet("leaderboard")
+    leaderboard.append_row([data])
+    print("Leaderboard successfully updated.\n")
+    print(f"Well done {data} on achieving the highest average miles this week!")
+
+
 def main():
     """
     Run all the program functions
@@ -154,7 +166,7 @@ def main():
     weekly_averages = calculate_weekly_average(miles_columns)
     update_averages_worksheet(weekly_averages)
     winner = calculate_highest_average(data)
-    print(winner)
+    update_leaderboard(winner)
 
 
 print("Hello fellow runners!\n")
