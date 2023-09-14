@@ -85,6 +85,22 @@ def update_mileage_worksheet(mileage):
     print("mileage worksheet updated successfully.\n")
 
 
+def get_weekly_average():
+    """
+    Collects columns of data from mileage worksheet.
+    The last 7 entries for each member, and returns the average
+    for each as a list.
+    """
+    miles = SHEET.worksheet("mileage")
+
+    columns = []
+    for ind in range(1, 6):
+        column = miles.col_values(ind)
+        columns.append(column[-7:])
+
+    return columns
+
+
 def main():
     """
     Run all the program functions
@@ -96,4 +112,6 @@ def main():
 
 
 print("Hello fellow runners!\n")
-main()
+# main()
+
+miles_columns = get_weekly_average()
