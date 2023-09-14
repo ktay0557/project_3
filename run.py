@@ -14,23 +14,50 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('felling_running_club')
 
 
-def get_miles_data():
+def get_mileage_data():
     """
     Get the daily miles for each member for the user
     """
     print("Data should be five numbers, separated by commas.")
     print("Example: 12,5,8,6,7\n")
     week = list(calendar.day_name)
-    miles_data = {}
+    mileage_data = {}
 
     for day in week:
-        print(f"Please enter the miles data from {day}, for each member.")
-        data_str = input("Enter the data here: ")
-        miles_data[day] = data_str
+        while True:
+            print(f"Please enter the mileage data from {day}, for each member.")
+            data_str = input("Enter the data here: ")
+
+            if validate_data(data_str.split(",")):
+                mileage_data[day] = data_str
+                break
+            else:
+                print("Please enter valid quanity of miles.")
+        
 
     print("\n")
 
-    for day, data in miles_data.items():
-        print(f"The miles provided for {day} are {data_str}")
+    for day, data in mileage_data.items():
+        print(f"The mileage provided for {day} are {data_str}")
 
-get_miles_data()
+
+def validate_data(values):
+    """
+    Inside try, will convert the string values into integers.
+    If strings cannot be converted, or if there is not 5 values,
+    will raise a ValueError.
+    """
+    try:
+        if len(values) != 5:
+            raise ValueError(
+                f"5 values are required, you gave {len(values)}"
+            )
+
+        [int(value) for value in values]
+        return True
+
+    except ValueError as e:
+        print(f"Invalid miles: {e}, please try again.\n")
+
+
+get_mileage_data()
