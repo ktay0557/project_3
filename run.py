@@ -31,14 +31,8 @@ def get_mileage_data():
             if validate_data(data_str.split(",")):
                 mileage_data[day] = data_str
                 break
-            else:
-                print("Please enter valid quanity of miles.")
-        
-
-    print("\n")
-
-    for day, data in mileage_data.items():
-        print(f"The mileage provided for {day} are {data_str}")
+            
+    return mileage_data
 
 
 def validate_data(values):
@@ -58,6 +52,7 @@ def validate_data(values):
 
     except ValueError as e:
         print(f"Invalid miles: {e}, please try again.\n")
+        return False
 
 
-get_mileage_data()
+mileage = get_mileage_data()
