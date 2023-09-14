@@ -26,6 +26,7 @@ def get_mileage_data():
     week = list(calendar.day_name)
     mileage_data = {}
 
+    # loops through each day, for mileage from members
     for day in week:
         while True:
             print(f"Please enter the mileage data from {day}, for each member.")
@@ -68,7 +69,7 @@ def get_mileage_only(mileage_data):
     return mileage_only
 
 
-def update_mileage_worksheet(mileage_only):
+def update_mileage_worksheet(mileage):
     """
     Update mileage worksheet.
     Add new rows with the daily mileage data collected from user.
@@ -76,6 +77,7 @@ def update_mileage_worksheet(mileage_only):
     print("Updating mileage worksheet...\n")
     mileage_worksheet = SHEET.worksheet("mileage")
 
+    # ensures new row is added for each day
     for i in range(0, len(mileage), 5):
         row_data = mileage[i:i+5]
         mileage_worksheet.append_row(row_data)
@@ -83,7 +85,15 @@ def update_mileage_worksheet(mileage_only):
     print("mileage worksheet updated successfully.\n")
 
 
-data = get_mileage_data()
-mileage_only = get_mileage_only(data)
-mileage = [int(num) for num in mileage_only]
-update_mileage_worksheet(mileage)
+def main():
+    """
+    Run all the program functions
+    """
+    data = get_mileage_data()
+    mileage_only = get_mileage_only(data)
+    mileage = [int(num) for num in mileage_only]
+    update_mileage_worksheet(mileage)
+
+
+print("Hello fellow runners!\n")
+main()
