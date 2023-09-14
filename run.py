@@ -35,7 +35,7 @@ def get_mileage_data():
             if validate_data(data_str.split(",")):
                 mileage_data[day] = data_str
                 break
-            
+
     return mileage_data
 
 
@@ -65,7 +65,7 @@ def get_mileage_only(mileage_data):
     to allow to update the worksheet with just integers.
     """
     mileage_only = [int(mileage) for value in mileage_data.values() for mileage in value.split(",")]
-    
+
     return mileage_only
 
 
@@ -128,6 +128,20 @@ def update_averages_worksheet(data):
     print("weekly_average worksheet updated successfully.\n")
 
 
+def calculate_highest_average(data):
+    """
+    Calculate the member with the highest weekly average mileage.
+    """
+    print("Calculating the member with the highest weekly average mileage...\n")
+    highest_average = SHEET.worksheet("weekly_average")
+    members = highest_average.row_values(1)
+    averages = SHEET.worksheet("weekly_average").get_all_values()
+    values = averages[-1]
+    winner = members[values.index(max(values))]
+
+    return winner
+
+
 def main():
     """
     Run all the program functions
@@ -139,6 +153,8 @@ def main():
     miles_columns = get_weekly_mileage()
     weekly_averages = calculate_weekly_average(miles_columns)
     update_averages_worksheet(weekly_averages)
+    winner = calculate_highest_average(data)
+    print(winner)
 
 
 print("Hello fellow runners!\n")
