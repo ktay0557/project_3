@@ -29,7 +29,7 @@ def get_mileage_data():
     # loops through each day, for mileage from members
     for day in week:
         while True:
-            print(f"Please enter the mileage data from {day}, for each member.")
+            print(f"Please enter mileage data from {day}, for each member.")
             data_str = input("Enter the data here:\n")
 
             if validate_data(data_str.split(",")):
@@ -132,7 +132,7 @@ def calculate_highest_average(data):
     """
     Calculate the member with the highest weekly average mileage.
     """
-    print("Calculating the member with the highest weekly average mileage...\n")
+    print("Calculating member with the highest weekly average mileage...\n")
     highest_average = SHEET.worksheet("weekly_average")
     members = highest_average.row_values(1)
     averages = SHEET.worksheet("weekly_average").get_all_values()
@@ -151,7 +151,7 @@ def update_leaderboard(data):
     leaderboard = SHEET.worksheet("leaderboard")
     leaderboard.append_row([data])
     print("Leaderboard successfully updated.\n")
-    print(f"Well done {data} on achieving the highest average miles this week!")
+    print(f"Well done {data} on achieving the highest average this week!")
 
 
 def main():
