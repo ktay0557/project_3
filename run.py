@@ -18,7 +18,7 @@ def get_mileage_data():
     """
     Get the daily miles for each member for the user.
     Run a while loop, collecting valid string of 5 numbers each day,
-    separated by commas, from user using the terminal. Repeated until 
+    separated by commas, from user using the terminal. Repeated until
     all required valid data is collected.
     """
     print("Data should be five numbers, separated by commas.")
@@ -30,7 +30,7 @@ def get_mileage_data():
     for day in week:
         while True:
             print(f"Please enter the mileage data from {day}, for each member.")
-            data_str = input("Enter the data here: ")
+            data_str = input("Enter the data here:\n")
 
             if validate_data(data_str.split(",")):
                 mileage_data[day] = data_str
@@ -145,7 +145,7 @@ def calculate_highest_average(data):
 def update_leaderboard(data):
     """
     Update the leaderboard worksheet with the member with the highest average.
-    Print to the terminal congratulating the winner. 
+    Print to the terminal congratulating the winner.
     """
     print("Updating leaderboard...\n")
     leaderboard = SHEET.worksheet("leaderboard")
