@@ -64,7 +64,11 @@ def get_mileage_only(mileage_data):
     Extracts the mileage from the mileage_data,
     to allow to update the worksheet with just integers.
     """
-    mileage_only = [int(mileage) for value in mileage_data.values() for mileage in value.split(",")]
+    mileage_only = [
+        int(mileage)
+        for value in mileage_data.values()
+        for mileage in value.split(",")
+    ]
 
     return mileage_only
 
